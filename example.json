@@ -1,0 +1,6 @@
+{
+  "homeserverURL": "https://matrix.org",
+  "userID": "@example:matrix.org",
+  "accessToken": "my_access_token",
+  "roomID": "!oJJwhvLOYfduLjDTjA:matrix.org"
+}

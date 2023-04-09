@@ -1,0 +1,6 @@
+github.com/donuts-are-good/colors v1.1.1 h1:1dl9M5B8v+5N8y9iggmyi1QWndCRBbeiknrm8wyiZ6U=
+github.com/donuts-are-good/colors v1.1.1/go.mod h1:qJm/kwHGeQLrMKWyplA9/IkT9wwOLL3vx0Wlcn7ntPc=
+github.com/matrix-org/gomatrix v0.0.0-20220926102614-ceba4d9f7530 h1:kHKxCOLcHH8r4Fzarl4+Y3K5hjothkVW5z7T1dUM11U=
+github.com/matrix-org/gomatrix v0.0.0-20220926102614-ceba4d9f7530/go.mod h1:/gBX06Kw0exX1HrwmoBibFA98yBk/jxKpGVeyQbff+s=
+golang.org/x/sys v0.7.0 h1:3jlCCIQZPdOYu1h8BkNvLz8Kgwtae2cagcG/VamtZRU=
+golang.org/x/sys v0.7.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
