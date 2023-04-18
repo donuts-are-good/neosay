@@ -3,8 +3,11 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"os"
+	"path"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -22,27 +25,26 @@ type Config struct {
 const maxMessageSize = 4000
 const messageDelay = 2 * time.Second
 
-var codeFlag bool
+var (
+	configFile = flag.String("config", "$XDG_CONFIG_HOME/neosay/config.json", "path to the configuration file")
+	codeFlag   = flag.Bool("code", false, "is this code?")
+)
 
 func main() {
+	flag.Parse()
 
-	// name the argset
-	args := os.Args[1:]
-
-	// if we get too few, supply the usage
-	if len(args) < 1 {
-		fmt.Fprintln(os.Stderr, colors.BrightRed+"Usage: neosay <config-file> [-c | --code]"+colors.Nc)
+	home, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%sfailed to get user's home directory. Well, shit.%s\n", colors.BrightRed, colors.Nc)
 		os.Exit(1)
 	}
+	xdgConfigHome := path.Join(home, ".config")
+	if env, _ := os.LookupEnv("XDG_CONFIG_HOME"); env != "" {
+		xdgConfigHome = env
+	}
 
-	// name the config file
-	configFile := args[0]
-
-	// check for the args, which can be anywhere
-	for _, arg := range args[1:] {
-		if arg == "--code" || arg == "-c" {
-			codeFlag = true
-		}
+	if strings.Contains(*configFile, "$XDG_CONFIG_HOME") {
+		*configFile = filepath.Join(xdgConfigHome, "neosay", "config.json")
 	}
 
 	// open the config
@@ -131,7 +133,7 @@ func main() {
 func sendMessage(client *gomatrix.Client, roomID, message string) {
 
 	// if we use -c or --code, make it a ```this thing```
-	if codeFlag {
+	if *codeFlag {
 		message = "<pre><code>" + message + "</code></pre>"
 	}
 
