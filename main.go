@@ -2,10 +2,12 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
+	"os/exec"
 	"path"
 	"path/filepath"
 	"strings"
@@ -16,10 +18,11 @@ import (
 )
 
 type Config struct {
-	HomeserverURL string `json:"homeserverURL"`
-	UserID        string `json:"userID"`
-	AccessToken   string `json:"accessToken"`
-	RoomID        string `json:"roomID"`
+	HomeserverURL  string `json:"homeserverURL"`
+	UserID         string `json:"userID"`
+	AccessToken    string `json:"accessToken"`
+	AccessTokenCmd string `json:"accessTokenCmd"`
+	RoomID         string `json:"roomID"`
 }
 
 const maxMessageSize = 4000
@@ -76,6 +79,14 @@ func main() {
 	}
 
 	// get the access token
+	if config.AccessTokenCmd != "" {
+		res := bytes.NewBuffer([]byte{})
+		cmd := exec.Command("/bin/sh", "-c", config.AccessTokenCmd)
+		cmd.Stdout = res
+		cmd.Run()
+
+		config.AccessToken = res.String()
+	}
 	accessToken := config.AccessToken
 	if accessToken == "" {
 		accessToken = os.Getenv("MATRIX_ACCESS_TOKEN")

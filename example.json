@@ -2,5 +2,6 @@
   "homeserverURL": "https://matrix.org",
   "userID": "@example:matrix.org",
   "accessToken": "my_access_token",
+  "accessTokenCmd": "secret-tool lookup Title 'Neosay Matrix Access Token'",
   "roomID": "!oJJwhvLOYfduLjDTjA:matrix.org"
 }
