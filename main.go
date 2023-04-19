@@ -51,7 +51,7 @@ func main() {
 	}
 
 	// open the config
-	file, err := os.Open(configFile)
+	file, err := os.Open(*configFile)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, colors.BrightRed+"error opening config file:"+colors.Nc, err)
 		os.Exit(1)
