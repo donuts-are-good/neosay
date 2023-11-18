@@ -156,5 +156,5 @@ func sendMessage(client *gomatrix.Client, roomID, message string) {
 	} else {
 		fmt.Println(colors.BrightGreen + "Sent!" + colors.Nc)
 	}
-	time.Sleep(messageDelay)
+	// time.Sleep(messageDelay)
 }
